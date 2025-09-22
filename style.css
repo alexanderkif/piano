@@ -1,0 +1,81 @@
+body {
+  --key-width-white: 90px;
+  --key-width-black: calc(var(--key-width-white) / 1.5);
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.piano-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.keyboard-wrapper {
+  width: 100%;
+  height: 90vh;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  order: 2;
+}
+
+.keyboard-wrapper::-webkit-scrollbar {
+  height: 0px;
+}
+
+.keyboard {
+  display: flex;
+  height: 100%;
+  position: relative;
+  width: max-content;
+}
+
+.key-group {
+  position: relative;
+  display: flex;
+}
+
+.white-key {
+  width: var(--key-width-white);
+  height: 100%;
+  background-color: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.black-key {
+  width: var(--key-width-black);
+  height: 60%;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: var(--key-width-black);
+  z-index: 2;
+}
+
+.white-key.active {
+  background-color: #ddd;
+}
+.black-key.active {
+  background-color: #555;
+}
+
+@media (min-height: 400px) {
+  .keyboard-wrapper {
+    --key-width-white: 70px;
+    --key-width-black: calc(var(--key-width-white) / 1.5);
+    height: 70vh;
+  }
+}
