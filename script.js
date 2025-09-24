@@ -48,6 +48,7 @@ const audioContext = new AudioContext();
 const audioBuffers = {};
 const activeNotes = new Set();
 const activeSources = {};
+const MIN_NOTE_DURATION = 80;
 const keyboard = document.querySelector('.keyboard');
 
 async function loadAudio(note) {
@@ -68,18 +69,28 @@ function resumeContext() {
 
 function playSound(note) {
   if (!audioBuffers[note]) return;
-  if (activeSources[note]) activeSources[note].stop();
   const src = audioContext.createBufferSource();
   src.buffer = audioBuffers[note];
   src.connect(audioContext.destination);
   src.start();
-  activeSources[note] = src;
+  if (!activeSources[note]) activeSources[note] = [];
+  activeSources[note].push({ src, startedAt: Date.now(), stopTimeout: null });
 }
 
 function stopSound(note) {
-  if (activeSources[note]) {
-    activeSources[note].stop();
-    delete activeSources[note];
+  if (activeSources[note] && activeSources[note].length) {
+    activeSources[note].forEach(obj => {
+      const elapsed = Date.now() - obj.startedAt;
+      if (obj.stopTimeout) clearTimeout(obj.stopTimeout);
+      if (elapsed >= MIN_NOTE_DURATION) {
+        obj.src.stop();
+      } else {
+        obj.stopTimeout = setTimeout(() => {
+          obj.src.stop();
+        }, MIN_NOTE_DURATION - elapsed);
+      }
+    });
+    activeSources[note] = [];
   }
 }
 
