@@ -17,6 +17,14 @@
   </head>
   <body>
     <div class="piano-container">
+      <div class="piano-controls">
+        <label class="switch-label">Synth</label>
+        <label class="switch">
+          <input type="checkbox" id="mode-switch">
+          <span class="slider"></span>
+        </label>
+        <label class="switch-label">Piano</label>
+      </div>
       <div class="keyboard-wrapper">
         <div class="keyboard">
           <div class="key-group">
@@ -40,10 +48,10 @@
           </div>
           <div class="key-group">
             <div class="white-key" data-note="A3"></div>
-            <div class="black-key" data-note="Hb3"></div>
+            <div class="black-key" data-note="Bb3"></div>
           </div>
           <div class="key-group">
-            <div class="white-key" data-note="H3"></div>
+            <div class="white-key" data-note="B3"></div>
           </div>
 
           <div class="key-group">
@@ -67,10 +75,10 @@
           </div>
           <div class="key-group">
             <div class="white-key" data-note="A4"></div>
-            <div class="black-key" data-note="Hb4"></div>
+            <div class="black-key" data-note="Bb4"></div>
           </div>
           <div class="key-group">
-            <div class="white-key" data-note="H4"></div>
+            <div class="white-key" data-note="B4"></div>
           </div>
 
           <div class="key-group">
@@ -94,15 +102,16 @@
           </div>
           <div class="key-group">
             <div class="white-key" data-note="A5"></div>
-            <div class="black-key" data-note="Hb5"></div>
+            <div class="black-key" data-note="Bb5"></div>
           </div>
           <div class="key-group">
-            <div class="white-key" data-note="H5"></div>
+            <div class="white-key" data-note="B5"></div>
           </div>
         </div>
       </div>
     </div>
 
+    <script src="https://unpkg.com/tone@14.7.58/build/Tone.js"></script>
     <script src="script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
