@@ -261,14 +261,16 @@ const touchNoteMap = new Map();
   );
 });
 
-keyboard.addEventListener("touchend", (e) => {
-  e.preventDefault();
-  Array.from(e.changedTouches).forEach((touch) => {
-    if (touchNoteMap.has(touch.identifier)) {
-      const note = touchNoteMap.get(touch.identifier);
-      handleRelease(note, document.querySelector(`[data-note="${note}"]`));
-      touchNoteMap.delete(touch.identifier);
-    }
+["touchend", "pointerup", "pointercancel"].forEach((type) => {
+  keyboard.addEventListener(type, (e) => {
+    e.preventDefault();
+    Array.from(e.changedTouches).forEach((touch) => {
+      if (touchNoteMap.has(touch.identifier)) {
+        const note = touchNoteMap.get(touch.identifier);
+        handleRelease(note, document.querySelector(`[data-note="${note}"]`));
+        touchNoteMap.delete(touch.identifier);
+      }
+    });
   });
 });
 
